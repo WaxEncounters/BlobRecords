@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -86,6 +86,16 @@
                 align-items: center;
                 justify-content: center;
             }
+            #lang-toggle-mobile-header {
+                display: flex !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                min-width: 44px;
+                min-height: 44px;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.25rem;
+            }
         }
         a, button {
             -webkit-tap-highlight-color: rgba(255,255,255,0.1);
@@ -104,13 +114,15 @@
                     </a>
                 </div>
                 <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="index.html" class="hover:text-gray-300 transition-colors duration-200">Home</a>
-                        <a href="index.html#about" class="hover:text-gray-300 transition-colors duration-200">About Us</a>
-                        <a href="contact.html" class="hover:text-gray-300 transition-colors duration-200">Contact</a>
+                    <div class="ml-10 flex items-baseline space-x-8 items-center">
+                        <a href="index.html" class="hover:text-gray-300 transition-colors duration-200" data-i18n="navHome">Home</a>
+                        <a href="index.html#about" class="hover:text-gray-300 transition-colors duration-200" data-i18n="navAbout">About Us</a>
+                        <a href="contact.html" class="hover:text-gray-300 transition-colors duration-200" data-i18n="navContact">Contact</a>
+                        <button type="button" id="lang-toggle" class="ml-2 p-1.5 rounded hover:bg-white/10 transition-colors touch-manipulation min-w-[44px] min-h-[44px] md:min-w-0 md:min-h-0 flex items-center justify-center text-xl" aria-label="Italiano" title="Italiano">🇮🇹</button>
                     </div>
                 </div>
-                <div class="md:hidden">
+                <div class="md:hidden flex items-center gap-1">
+                    <button type="button" id="lang-toggle-mobile-header" class="p-2 -m-2 rounded hover:bg-white/10 transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center text-xl" aria-label="Italiano" title="Italiano">🇮🇹</button>
                     <button type="button" id="mobile-menu-button" class="p-2 -m-2 text-gray-300 hover:text-white focus:outline-none focus:text-white touch-manipulation" aria-label="Open menu">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -123,9 +135,10 @@
         <!-- Mobile menu panel -->
         <div id="mobile-menu" class="md:hidden hidden">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-black bg-opacity-90 backdrop-filter backdrop-blur-lg border-t border-white border-opacity-10">
-                <a href="index.html" class="block px-4 py-3 text-base font-medium hover:text-gray-300 transition-colors duration-200">Home</a>
-                <a href="index.html#about" class="block px-4 py-3 text-base font-medium hover:text-gray-300 transition-colors duration-200">About Us</a>
-                <a href="contact.html" class="block px-4 py-3 text-base font-medium hover:text-gray-300 transition-colors duration-200">Contact</a>
+                <a href="index.html" class="block px-4 py-3 text-base font-medium hover:text-gray-300 transition-colors duration-200" data-i18n="navHome">Home</a>
+                <a href="index.html#about" class="block px-4 py-3 text-base font-medium hover:text-gray-300 transition-colors duration-200" data-i18n="navAbout">About Us</a>
+                <a href="contact.html" class="block px-4 py-3 text-base font-medium hover:text-gray-300 transition-colors duration-200" data-i18n="navContact">Contact</a>
+                <button type="button" id="lang-toggle-mobile" class="block w-full text-left px-4 py-3 text-base font-medium hover:text-gray-300 transition-colors duration-200 touch-manipulation" aria-label="Italiano"><span id="lang-toggle-mobile-label">🇮🇹 Italiano</span></button>
             </div>
         </div>
     </nav>
@@ -134,8 +147,8 @@
     <section class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-20 pb-8 sm:pt-16 sm:pb-16">
         <div class="luxury-card rounded-3xl p-6 sm:p-8 lg:p-12 shimmer-effect max-w-2xl w-full text-center">
             <img src="images/blob-records-logo.png" alt="Blob Records" class="h-20 sm:h-32 w-auto object-contain mx-auto mb-6 sm:mb-8 max-w-full">
-            <h1 class="text-xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-200">Get in touch</h1>
-            <p class="text-base sm:text-lg text-gray-300 mb-3 sm:mb-4">Email us at</p>
+            <h1 class="text-xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-200" data-i18n="contactTitle">Get in touch</h1>
+            <p class="text-base sm:text-lg text-gray-300 mb-3 sm:mb-4" data-i18n="contactEmailLabel">Email us at</p>
             <a href="mailto:recordsblob@gmail.com" class="text-lg sm:text-2xl font-semibold text-white hover:text-gray-200 transition-colors duration-200 underline underline-offset-4 break-all touch-manipulation py-2 inline-block">
                 recordsblob@gmail.com
             </a>
@@ -143,9 +156,43 @@
     </section>
 
     <script>
+        var translations = {
+            en: { navHome: 'Home', navAbout: 'About Us', navContact: 'Contact', contactTitle: 'Get in touch', contactEmailLabel: 'Email us at', pageTitle: 'Contact - Blob Records', langSwitchLabel: '🇮🇹 Italiano' },
+            it: { navHome: 'Home', navAbout: 'Chi siamo', navContact: 'Contatti', contactTitle: 'Contattaci', contactEmailLabel: 'Scrivici a', pageTitle: 'Contatti - Blob Records', langSwitchLabel: '🇬🇧 English' }
+        };
+        function applyLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(function (el) {
+                var key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) el.textContent = translations[lang][key];
+            });
+            document.documentElement.lang = lang;
+            document.title = (translations[lang] && translations[lang].pageTitle) ? translations[lang].pageTitle : document.title;
+            var btn = document.getElementById('lang-toggle');
+            if (btn) { btn.textContent = lang === 'en' ? '🇮🇹' : '🇬🇧'; btn.title = lang === 'en' ? 'Italiano' : 'English'; btn.setAttribute('aria-label', lang === 'en' ? 'Italiano' : 'English'); }
+            var btnMobileHeader = document.getElementById('lang-toggle-mobile-header');
+            if (btnMobileHeader) { btnMobileHeader.textContent = lang === 'en' ? '🇮🇹' : '🇬🇧'; btnMobileHeader.title = lang === 'en' ? 'Italiano' : 'English'; btnMobileHeader.setAttribute('aria-label', lang === 'en' ? 'Italiano' : 'English'); }
+            var mobileLabel = document.getElementById('lang-toggle-mobile-label');
+            if (mobileLabel && translations[lang] && translations[lang].langSwitchLabel) mobileLabel.textContent = translations[lang].langSwitchLabel;
+        }
+        function toggleLanguage() {
+            var lang = (document.documentElement.getAttribute('lang') || 'en') === 'en' ? 'it' : 'en';
+            try { localStorage.setItem('blob-lang', lang); } catch (e) {}
+            applyLanguage(lang);
+            var mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) mobileMenu.classList.add('hidden');
+        }
         document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
+            var saved = 'en';
+            try { saved = localStorage.getItem('blob-lang') || 'en'; if (saved !== 'en' && saved !== 'it') saved = 'en'; } catch (e) {}
+            applyLanguage(saved);
+            var lt = document.getElementById('lang-toggle');
+            var ltm = document.getElementById('lang-toggle-mobile');
+            var ltmHeader = document.getElementById('lang-toggle-mobile-header');
+            if (lt) lt.addEventListener('click', toggleLanguage);
+            if (ltm) ltm.addEventListener('click', toggleLanguage);
+            if (ltmHeader) ltmHeader.addEventListener('click', toggleLanguage);
+            var mobileMenuButton = document.getElementById('mobile-menu-button');
+            var mobileMenu = document.getElementById('mobile-menu');
             if (mobileMenuButton && mobileMenu) {
                 mobileMenuButton.addEventListener('click', function() {
                     mobileMenu.classList.toggle('hidden');
