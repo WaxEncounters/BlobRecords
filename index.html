@@ -6,7 +6,14 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Blob Records - Custom Vinyl</title>
+    <title>Blob Records - Vinyl printing</title>
+    <meta name="description" content="Blob Records - Vinyl printing. Custom vinyl, made your way.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Blob Records - Vinyl printing">
+    <meta property="og:description" content="Blob Records - Vinyl printing. Custom vinyl, made your way.">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Blob Records - Vinyl printing">
+    <meta name="twitter:description" content="Blob Records - Vinyl printing. Custom vinyl, made your way.">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -223,6 +230,7 @@
         a, button {
             -webkit-tap-highlight-color: rgba(255,255,255,0.1);
         }
+        .lang-flag-btn svg { width: 24px; height: 16px; display: block; }
     </style>
 </head>
 <body class="text-white overflow-x-hidden">
@@ -241,7 +249,7 @@
                         <a href="index.html" class="hover:text-gray-300 transition-colors duration-200" data-i18n="navHome">Home</a>
                         <a href="index.html#about" class="hover:text-gray-300 transition-colors duration-200" data-i18n="navAbout">About Us</a>
                         <a href="contact.html" class="hover:text-gray-300 transition-colors duration-200" data-i18n="navContact">Contact</a>
-                        <button type="button" id="lang-toggle" class="ml-2 p-1.5 rounded hover:bg-white/10 transition-colors touch-manipulation min-w-[44px] min-h-[44px] md:min-w-0 md:min-h-0 flex items-center justify-center text-xl" aria-label="Italiano" title="Italiano">🇮🇹</button>
+                        <button type="button" id="lang-toggle" class="lang-flag-btn ml-2 p-1.5 rounded hover:bg-white/10 transition-colors touch-manipulation min-w-[44px] min-h-[44px] md:min-w-0 md:min-h-0 flex items-center justify-center" aria-label="Italiano" title="Italiano"><span id="lang-toggle-icon"></span></button>
                     </div>
                 </div>
                 <div class="md:hidden flex items-center gap-1">
@@ -416,6 +424,9 @@
     </section>
 
     <script>
+        // Flag SVGs so desktop shows real flags (not "IT"/"GB" on Windows)
+        var flagIT = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2" width="24" height="16"><rect width="1" height="2" fill="#009246"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#CE2B37"/></svg>';
+        var flagGB = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="24" height="12"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></svg>';
         // i18n: English (default) / Italian
         var translations = {
             en: {
@@ -443,7 +454,7 @@
                 aboutP1: 'At Blob Records, we bring your music to life on vinyl exactly how you envision it. Every record is tailored to the artist\'s preferences, from sound quality to visual details.',
                 aboutP2: 'For those who care about the planet as much as the music, we offer recycled vinyl options. Old records are carefully melted and re-pressed, creating stunning, one-of-a-kind color patterns—so every pressing is truly unique. By giving vinyl a second life, we reduce waste and help make your music journey more sustainable.',
                 aboutP3: 'Experience the perfect harmony of artistry and eco-consciousness—because great music deserves a greener footprint.',
-                pageTitle: 'Blob Records - Custom Vinyl',
+                pageTitle: 'Blob Records - Vinyl printing',
                 langSwitchLabel: '🇮🇹 Italiano'
             },
             it: {
@@ -471,7 +482,7 @@
                 aboutP1: 'In Blob Records diamo vita alla tua musica su vinile esattamente come la immagini. Ogni disco è realizzato su misura per l\'artista, dalla qualità del suono ai dettagli visivi.',
                 aboutP2: 'Per chi ha a cuore il pianeta quanto la musica, offriamo vinili riciclati. I vecchi dischi vengono fusi e ristampati con cura, creando motivi di colore unici—ogni stampa è davvero unica. Dando una seconda vita al vinile, riduciamo gli sprechi e rendiamo il tuo percorso musicale più sostenibile.',
                 aboutP3: 'L\'armonia perfetta tra arte e coscienza ecologica—perché la grande musica merita un\'impronta più verde.',
-                pageTitle: 'Blob Records - Vinile su misura',
+                pageTitle: 'Blob Records - Stampa vinile',
                 langSwitchLabel: '🇬🇧 English'
             }
         };
@@ -514,7 +525,8 @@
             document.documentElement.lang = lang;
             document.title = translations[lang] && translations[lang].pageTitle ? translations[lang].pageTitle : document.title;
             var btn = document.getElementById('lang-toggle');
-            if (btn) { btn.textContent = lang === 'en' ? '🇮🇹' : '🇬🇧'; btn.title = lang === 'en' ? 'Italiano' : 'English'; btn.setAttribute('aria-label', lang === 'en' ? 'Italiano' : 'English'); }
+            var btnIcon = document.getElementById('lang-toggle-icon');
+            if (btn && btnIcon) { btnIcon.innerHTML = lang === 'en' ? flagIT : flagGB; btn.title = lang === 'en' ? 'Italiano' : 'English'; btn.setAttribute('aria-label', lang === 'en' ? 'Italiano' : 'English'); }
             var btnMobileHeader = document.getElementById('lang-toggle-mobile-header');
             if (btnMobileHeader) { btnMobileHeader.textContent = lang === 'en' ? '🇮🇹' : '🇬🇧'; btnMobileHeader.title = lang === 'en' ? 'Italiano' : 'English'; btnMobileHeader.setAttribute('aria-label', lang === 'en' ? 'Italiano' : 'English'); }
             var mobileLabel = document.getElementById('lang-toggle-mobile-label');
