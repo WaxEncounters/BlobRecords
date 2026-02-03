@@ -69,6 +69,27 @@
             background-repeat: no-repeat;
             z-index: -1;
         }
+        /* Mobile: safe area for notched phones */
+        body {
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
+        .glass-nav {
+            padding-left: max(1rem, env(safe-area-inset-left));
+            padding-right: max(1rem, env(safe-area-inset-right));
+        }
+        @media (max-width: 768px) {
+            #mobile-menu-button {
+                min-width: 44px;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+        a, button {
+            -webkit-tap-highlight-color: rgba(255,255,255,0.1);
+        }
     </style>
 </head>
 <body class="text-white overflow-x-hidden min-h-screen">
@@ -78,8 +99,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                    <a href="index.html" class="flex-shrink-0 flex items-center" aria-label="Blob Records - Home">
-                        <img src="images/blob-records-logo.png" alt="Blob Records" class="h-10 sm:h-12 w-auto object-contain">
+                    <a href="index.html" class="flex-shrink-0 flex items-center min-w-0" aria-label="Blob Records - Home">
+                        <img src="images/blob-records-logo.png" alt="Blob Records" class="h-10 sm:h-12 w-auto object-contain max-w-[140px] sm:max-w-none">
                     </a>
                 </div>
                 <div class="hidden md:block">
@@ -90,7 +111,7 @@
                     </div>
                 </div>
                 <div class="md:hidden">
-                    <button type="button" id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none focus:text-white">
+                    <button type="button" id="mobile-menu-button" class="p-2 -m-2 text-gray-300 hover:text-white focus:outline-none focus:text-white touch-manipulation" aria-label="Open menu">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
@@ -102,20 +123,20 @@
         <!-- Mobile menu panel -->
         <div id="mobile-menu" class="md:hidden hidden">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-black bg-opacity-90 backdrop-filter backdrop-blur-lg border-t border-white border-opacity-10">
-                <a href="index.html" class="block px-3 py-2 text-base font-medium hover:text-gray-300 transition-colors duration-200">Home</a>
-                <a href="index.html#about" class="block px-3 py-2 text-base font-medium hover:text-gray-300 transition-colors duration-200">About Us</a>
-                <a href="contact.html" class="block px-3 py-2 text-base font-medium hover:text-gray-300 transition-colors duration-200">Contact</a>
+                <a href="index.html" class="block px-4 py-3 text-base font-medium hover:text-gray-300 transition-colors duration-200">Home</a>
+                <a href="index.html#about" class="block px-4 py-3 text-base font-medium hover:text-gray-300 transition-colors duration-200">About Us</a>
+                <a href="contact.html" class="block px-4 py-3 text-base font-medium hover:text-gray-300 transition-colors duration-200">Contact</a>
             </div>
         </div>
     </nav>
 
     <!-- Contact content -->
-    <section class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-16">
-        <div class="luxury-card rounded-3xl p-8 lg:p-12 shimmer-effect max-w-2xl w-full text-center">
-            <img src="images/blob-records-logo.png" alt="Blob Records" class="h-24 sm:h-32 w-auto object-contain mx-auto mb-8">
-            <h1 class="text-2xl sm:text-3xl font-bold mb-6 text-gray-200">Get in touch</h1>
-            <p class="text-lg text-gray-300 mb-4">Email us at</p>
-            <a href="mailto:recordsblob@gmail.com" class="text-xl sm:text-2xl font-semibold text-white hover:text-gray-200 transition-colors duration-200 underline underline-offset-4">
+    <section class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-20 pb-8 sm:pt-16 sm:pb-16">
+        <div class="luxury-card rounded-3xl p-6 sm:p-8 lg:p-12 shimmer-effect max-w-2xl w-full text-center">
+            <img src="images/blob-records-logo.png" alt="Blob Records" class="h-20 sm:h-32 w-auto object-contain mx-auto mb-6 sm:mb-8 max-w-full">
+            <h1 class="text-xl sm:text-3xl font-bold mb-4 sm:mb-6 text-gray-200">Get in touch</h1>
+            <p class="text-base sm:text-lg text-gray-300 mb-3 sm:mb-4">Email us at</p>
+            <a href="mailto:recordsblob@gmail.com" class="text-lg sm:text-2xl font-semibold text-white hover:text-gray-200 transition-colors duration-200 underline underline-offset-4 break-all touch-manipulation py-2 inline-block">
                 recordsblob@gmail.com
             </a>
         </div>
