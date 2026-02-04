@@ -230,7 +230,13 @@
         a, button {
             -webkit-tap-highlight-color: rgba(255,255,255,0.1);
         }
+        .lang-flag-btn { min-width: 36px; min-height: 28px; }
         .lang-flag-btn svg { width: 24px; height: 16px; display: block; }
+        /* Force desktop language button visible on PC (640px and up) */
+        @media (min-width: 640px) {
+            #desktop-nav { display: flex !important; visibility: visible !important; }
+            #lang-toggle { display: flex !important; visibility: visible !important; opacity: 1 !important; }
+        }
     </style>
 </head>
 <body class="text-white overflow-x-hidden">
@@ -244,15 +250,16 @@
                         <img src="images/blob-records-logo.png" alt="Blob Records" class="h-10 sm:h-12 w-auto object-contain max-w-[140px] sm:max-w-none">
                     </a>
                 </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8 items-center">
+                <div class="hidden sm:flex sm:items-center sm:gap-6 sm:flex-shrink-0 sm:ml-8" id="desktop-nav">
+                    <div class="flex items-baseline space-x-8">
                         <a href="index.html" class="hover:text-gray-300 transition-colors duration-200" data-i18n="navHome">Home</a>
                         <a href="index.html#about" class="hover:text-gray-300 transition-colors duration-200" data-i18n="navAbout">About Us</a>
+                        <a href="info.html" class="hover:text-gray-300 transition-colors duration-200" data-i18n="navInfo">Info</a>
                         <a href="contact.html" class="hover:text-gray-300 transition-colors duration-200" data-i18n="navContact">Contact</a>
-                        <button type="button" id="lang-toggle" class="lang-flag-btn ml-2 p-1.5 rounded hover:bg-white/10 transition-colors touch-manipulation min-w-[44px] min-h-[44px] md:min-w-0 md:min-h-0 flex items-center justify-center" aria-label="Italiano" title="Italiano"><span id="lang-toggle-icon"></span></button>
                     </div>
+                    <button type="button" id="lang-toggle" class="lang-flag-btn p-1.5 rounded hover:bg-white/10 transition-colors touch-manipulation flex items-center justify-center flex-shrink-0" aria-label="Italiano" title="Italiano"><span id="lang-toggle-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2" width="24" height="16"><rect width="1" height="2" fill="#009246"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#CE2B37"/></svg></span></button>
                 </div>
-                <div class="md:hidden flex items-center gap-1">
+                <div class="sm:hidden flex items-center gap-1">
                     <button type="button" id="lang-toggle-mobile-header" class="p-2 -m-2 rounded hover:bg-white/10 transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center text-xl" aria-label="Italiano" title="Italiano">🇮🇹</button>
                     <button type="button" id="mobile-menu-button" class="p-2 -m-2 text-gray-300 hover:text-white focus:outline-none focus:text-white touch-manipulation" aria-label="Open menu">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -264,10 +271,11 @@
         </div>
         
         <!-- Mobile menu panel -->
-        <div id="mobile-menu" class="md:hidden hidden">
+        <div id="mobile-menu" class="sm:hidden hidden">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-black bg-opacity-90 backdrop-filter backdrop-blur-lg border-t border-white border-opacity-10">
                 <a href="index.html" class="block px-4 py-3 text-base font-medium hover:text-gray-300 transition-colors duration-200" data-i18n="navHome">Home</a>
                 <a href="index.html#about" class="block px-4 py-3 text-base font-medium hover:text-gray-300 transition-colors duration-200" data-i18n="navAbout">About Us</a>
+                <a href="info.html" class="block px-4 py-3 text-base font-medium hover:text-gray-300 transition-colors duration-200" data-i18n="navInfo">Info</a>
                 <a href="contact.html" class="block px-4 py-3 text-base font-medium hover:text-gray-300 transition-colors duration-200" data-i18n="navContact">Contact</a>
                 <button type="button" id="lang-toggle-mobile" class="block w-full text-left px-4 py-3 text-base font-medium hover:text-gray-300 transition-colors duration-200 touch-manipulation" aria-label="Italiano"><span id="lang-toggle-mobile-label">🇮🇹 Italiano</span></button>
             </div>
@@ -432,6 +440,7 @@
             en: {
                 navHome: 'Home',
                 navAbout: 'About Us',
+                navInfo: 'Info',
                 navContact: 'Contact',
                 heroTitle: 'Blob Records: Turn Music Into Art.',
                 heroSub1: 'Custom vinyl, made your way. Recycled records with randomly unique colors—no two are ever alike.',
@@ -460,6 +469,7 @@
             it: {
                 navHome: 'Home',
                 navAbout: 'Chi siamo',
+                navInfo: 'Info',
                 navContact: 'Contatti',
                 heroTitle: 'Blob Records: Trasforma la musica in arte.',
                 heroSub1: 'Vinile su misura, come lo desideri. Dischi riciclati con colori unici e casuali—nessuno è uguale all\'altro.',
